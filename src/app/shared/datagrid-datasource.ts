@@ -2,6 +2,7 @@ import { DataSource } from '@angular/cdk/collections';
 import { MatPaginator, MatSort } from '@angular/material';
 import { map } from 'rxjs/operators';
 import { Observable, of as observableOf, merge } from 'rxjs';
+import { Injectable } from '@angular/core';
 
 // TODO: Replace this with your own data model type
 export interface DatagridItem {
@@ -38,6 +39,8 @@ const EXAMPLE_DATA: DatagridItem[] = [
  * encapsulate all logic for fetching and manipulating the displayed data
  * (including sorting, pagination, and filtering).
  */
+
+@Injectable()
 export class DatagridDataSource extends DataSource<DatagridItem> {
   data: DatagridItem[] = EXAMPLE_DATA;
 

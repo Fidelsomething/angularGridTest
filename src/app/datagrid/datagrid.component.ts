@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator, MatSort } from '@angular/material';
-import { DatagridDataSource } from './datagrid-datasource';
+import { DatagridDataSource } from '../shared/datagrid-datasource';
 
 @Component({
   selector: 'app-datagrid',
