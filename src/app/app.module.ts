@@ -13,7 +13,9 @@ import {
   MatListModule,
   MatFormFieldModule,
   MatSelectModule,
-  MatInputModule
+  MatInputModule,
+  MatChipsModule,
+  MatAutocompleteModule
 } from '@angular/material';
 
 @NgModule({
@@ -32,7 +34,9 @@ import {
     MatListModule,
     MatFormFieldModule,
     MatSelectModule,
-    MatInputModule
+    MatInputModule,
+    MatChipsModule,
+    MatAutocompleteModule
   ],
   providers: [],
   bootstrap: [AppComponent]
