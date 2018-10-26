@@ -41,11 +41,19 @@ const EXAMPLE_DATA: DatagridItem[] = [
  */
 
 @Injectable()
-export class DatagridDataSource extends DataSource<DatagridItem> {
+export class DataGridService implements DataSource<DatagridItem> {
   data: DatagridItem[] = EXAMPLE_DATA;
+  private paginator: MatPaginator;
+  private sort: MatSort;
 
-  constructor(private paginator: MatPaginator, private sort: MatSort) {
-    super();
+  setPaginator(paginator: MatPaginator) {
+    this.paginator = paginator;
+    console.log('added paginator');
+  }
+
+  setSort(sort: MatSort) {
+    this.sort = sort;
+    console.log('added sort');
   }
 
   /**

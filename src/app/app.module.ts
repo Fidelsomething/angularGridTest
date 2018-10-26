@@ -19,7 +19,7 @@ import {
 } from '@angular/material';
 import { OuterGridFilterComponent } from './outer-grid-filter/outer-grid-filter.component';
 import { DatagridComponent } from './datagrid/datagrid.component';
-import { DatagridDataSource } from './shared/datagrid-datasource';
+import { DataGridService } from './shared/datagrid-datasource';
 
 @NgModule({
   declarations: [
@@ -46,7 +46,7 @@ import { DatagridDataSource } from './shared/datagrid-datasource';
     MatPaginatorModule,
     MatSortModule
   ],
-  providers: [DatagridDataSource],
+  providers: [DataGridService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

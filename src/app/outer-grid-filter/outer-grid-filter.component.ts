@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { DataGridService } from '../shared/datagrid-datasource';
 
 @Component({
   selector: 'app-outer-grid-filter',
@@ -7,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class OuterGridFilterComponent implements OnInit {
 
-  constructor() { }
+  constructor(private dataGridService: DataGridService) { }
 
   ngOnInit() {
   }
