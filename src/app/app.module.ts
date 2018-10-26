@@ -15,13 +15,17 @@ import {
   MatSelectModule,
   MatInputModule,
   MatChipsModule,
-  MatAutocompleteModule
+  MatAutocompleteModule, MatTableModule, MatPaginatorModule, MatSortModule
 } from '@angular/material';
+import { OuterGridFilterComponent } from './outer-grid-filter/outer-grid-filter.component';
+import { DatagridComponent } from './datagrid/datagrid.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    MaliNavbarComponent
+    MaliNavbarComponent,
+    OuterGridFilterComponent,
+    DatagridComponent
   ],
   imports: [
     BrowserModule,
@@ -36,7 +40,10 @@ import {
     MatSelectModule,
     MatInputModule,
     MatChipsModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule
   ],
   providers: [],
   bootstrap: [AppComponent]
