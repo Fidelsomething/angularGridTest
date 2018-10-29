@@ -111,6 +111,17 @@ export class DataGridService implements DataSource<DatagridItem> {
       }
     });
   }
+
+  public getColumnValues(column: string) {
+
+/*    return this.data.map(function(d) {
+     return d[column];
+   }); */
+
+   return this.data.map(d => d[column]);
+
+
+  }
 }
 
 /** Simple sort comparator for example ID/Name columns (for client-side sorting). */

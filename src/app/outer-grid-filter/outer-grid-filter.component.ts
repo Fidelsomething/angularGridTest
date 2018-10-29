@@ -8,9 +8,14 @@ import { DataGridService } from '../shared/datagrid-datasource';
 })
 export class OuterGridFilterComponent implements OnInit {
 
+  idValues;
+  nameValues;
   constructor(private dataGridService: DataGridService) { }
 
   ngOnInit() {
+    console.log(this.idValues);
+    this.idValues = this.dataGridService.getColumnValues('id');
+    this.nameValues = this.dataGridService.getColumnValues('name');
   }
 
 }
