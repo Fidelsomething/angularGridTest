@@ -19,7 +19,8 @@ import {
 } from '@angular/material';
 import { OuterGridFilterComponent } from './outer-grid-filter/outer-grid-filter.component';
 import { DatagridComponent } from './datagrid/datagrid.component';
-import { DataGridService } from './shared/datagrid-datasource';
+import { DataGridService } from './shared/datasource.service';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import { DataGridService } from './shared/datagrid-datasource';
     MatAutocompleteModule,
     MatTableModule,
     MatPaginatorModule,
-    MatSortModule
+    MatSortModule,
+    ReactiveFormsModule
   ],
   providers: [DataGridService],
   bootstrap: [AppComponent]

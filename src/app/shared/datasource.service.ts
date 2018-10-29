@@ -1,8 +1,8 @@
 import { DataSource } from '@angular/cdk/collections';
-import { MatPaginator, MatSort } from '@angular/material';
+import { MatPaginator, MatSort, MatTable } from '@angular/material';
 import { map } from 'rxjs/operators';
-import { Observable, of as observableOf, merge } from 'rxjs';
-import { Injectable } from '@angular/core';
+import { Observable, of as observableOf, merge, BehaviorSubject } from 'rxjs';
+import { Injectable, ViewChild } from '@angular/core';
 
 // TODO: Replace this with your own data model type
 export interface DatagridItem {
@@ -45,6 +45,12 @@ export class DataGridService implements DataSource<DatagridItem> {
   data: DatagridItem[] = EXAMPLE_DATA;
   private paginator: MatPaginator;
   private sort: MatSort;
+  private table: MatTable<any>;
+
+  // Observable _filter source
+  private _filterSource = new BehaviorSubject<DatagridItem>({id: null, name: null});
+
+  filter$ = this._filterSource.asObservable();
 
   setPaginator(paginator: MatPaginator) {
     this.paginator = paginator;
@@ -56,6 +62,10 @@ export class DataGridService implements DataSource<DatagridItem> {
     console.log('added sort');
   }
 
+  setTable(table: MatTable<any>) {
+    this.table = table;
+    console.log('added table');
+  }
   /**
    * Connect this data source to the table. The table will only update when
    * the returned stream emits new items.
@@ -67,6 +77,7 @@ export class DataGridService implements DataSource<DatagridItem> {
     const dataMutations = [
       observableOf(this.data),
       this.paginator.page,
+      this.filter$,
       this.sort.sortChange
     ];
 
@@ -74,7 +85,7 @@ export class DataGridService implements DataSource<DatagridItem> {
     this.paginator.length = this.data.length;
 
     return merge(...dataMutations).pipe(map(() => {
-      return this.getPagedData(this.getSortedData([...this.data]));
+      return this.tableFilterData(this._filterSource.value, this.getPagedData(this.getSortedData([...this.data])));
     }));
   }
 
@@ -121,6 +132,15 @@ export class DataGridService implements DataSource<DatagridItem> {
    return this.data.map(d => d[column]);
 
 
+  }
+
+  public filterData( filter: DatagridItem) {
+    // let filteredData = this.data.filter( d => (!filter.id || d.id === +filter.id) && (!filter.name || d.name === filter.name));
+    this._filterSource.next(filter);
+  }
+
+  private tableFilterData( filter: DatagridItem, data: DatagridItem[]) {
+    return data.filter( d => (!filter.id || d.id === +filter.id) && (!filter.name || d.name === filter.name));
   }
 }
 
