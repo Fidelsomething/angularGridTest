@@ -23,7 +23,6 @@ export class DatagridComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.dataSource.setPaginator(this.paginator);
     this.dataSource.setSort(this.sort);
-    this.dataSource.setTable(this.table);
     this.filterSubscription = this.dataSource.filter$.subscribe(filter => this.filter);
   }
 

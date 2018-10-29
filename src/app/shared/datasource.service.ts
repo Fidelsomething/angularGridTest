@@ -47,9 +47,10 @@ export class DataGridService implements DataSource<DatagridItem> {
   private sort: MatSort;
   private table: MatTable<any>;
 
-  // Observable _filter source
+  // Observable filter source
   private _filterSource = new BehaviorSubject<DatagridItem>({id: null, name: null});
 
+  // Observable filter stream
   filter$ = this._filterSource.asObservable();
 
   setPaginator(paginator: MatPaginator) {
@@ -62,10 +63,6 @@ export class DataGridService implements DataSource<DatagridItem> {
     console.log('added sort');
   }
 
-  setTable(table: MatTable<any>) {
-    this.table = table;
-    console.log('added table');
-  }
   /**
    * Connect this data source to the table. The table will only update when
    * the returned stream emits new items.
@@ -123,17 +120,18 @@ export class DataGridService implements DataSource<DatagridItem> {
     });
   }
 
+  /**
+   * Gets all the values for the key: column. Used to map the autocomplete blocks with all possible values.
+   * @param column - Input column
+   */
   public getColumnValues(column: string) {
-
-/*    return this.data.map(function(d) {
-     return d[column];
-   }); */
-
    return this.data.map(d => d[column]);
-
-
   }
 
+  /**
+   * Applies input filter to the datasource. Input is an Object with columns and respective values.
+   * @param filter - data filter
+   */
   public filterData( filter: DatagridItem) {
     // let filteredData = this.data.filter( d => (!filter.id || d.id === +filter.id) && (!filter.name || d.name === filter.name));
     this._filterSource.next(filter);
