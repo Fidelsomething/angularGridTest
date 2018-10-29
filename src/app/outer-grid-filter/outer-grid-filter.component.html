@@ -1,10 +1,42 @@
 <div class="filter-container">
   <form [formGroup]="filterForm" (ngSubmit)="applyFilter(filterForm.value)">
-    <mat-form-field>
+
+
+    <!--mat-form-field>
       <mat-select formControlName="id" placeholder="ID">
         <mat-option value="{{id}}" *ngFor="let id of idValues">{{id}}</mat-option>
       </mat-select>
-    </mat-form-field>
+    </mat-form-field-->
+
+    <mat-form-field>
+        <mat-chip-list #chipList>
+          <mat-chip
+            *ngFor="let id of ids"
+            [selectable]="selectable"
+            [removable]="removable"
+            (removed)="removeId(id)">
+            {{id}}
+            <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+          </mat-chip>
+          <input
+            placeholder="ID"
+            #idInput
+            [formControl]="idCtrl"
+            [matAutocomplete]="auto"
+            [matChipInputFor]="chipList"
+            [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+            [matChipInputAddOnBlur]="addOnBlur"
+            (matChipInputTokenEnd)="addId($event)">
+        </mat-chip-list>
+        <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+          <mat-option *ngFor="let id of filteredIds | async" [value]="id">
+            {{id}}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+
+
+
     <mat-form-field>
       <mat-select formControlName="name" placeholder="Name">
           <mat-option value="{{name}}" *ngFor="let name of nameValues">{{name}}</mat-option>
