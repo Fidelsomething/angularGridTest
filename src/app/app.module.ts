@@ -19,7 +19,7 @@ import {
 } from '@angular/material';
 import { OuterGridFilterComponent } from './outer-grid-filter/outer-grid-filter.component';
 import { DatagridComponent } from './datagrid/datagrid.component';
-import { DataGridService } from './shared/datasource.service';
+import { DataGridDataSourceService } from './shared/dataGridDataSource.service';
 import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
@@ -49,7 +49,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     ReactiveFormsModule,
     MatSnackBarModule
   ],
-  providers: [DataGridService],
+  providers: [DataGridDataSourceService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

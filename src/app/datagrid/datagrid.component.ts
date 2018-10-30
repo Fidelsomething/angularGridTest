@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, Input, OnDestroy } from '@angular/core';
 import { MatPaginator, MatSort, MatTab, MatTable } from '@angular/material';
-import { DataGridService } from '../shared/datasource.service';
+import { DataGridDataSourceService } from '../shared/dataGridDataSource.service';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -15,7 +15,7 @@ export class DatagridComponent implements OnInit, OnDestroy {
   filter: DatagridComponent;
   filterSubscription: Subscription;
 
-  constructor(public dataSource: DataGridService) {}
+  constructor(public dataSource: DataGridDataSourceService) {}
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
   displayedColumns = ['id', 'name'];

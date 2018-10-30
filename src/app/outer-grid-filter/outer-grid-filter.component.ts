@@ -1,6 +1,6 @@
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { DataGridService, DatagridFilter } from '../shared/datasource.service';
+import { DataGridDataSourceService, DatagridFilter } from '../shared/dataGridDataSource.service';
 import { FormGroup, FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { MatAutocomplete, MatChipInputEvent, MatAutocompleteSelectedEvent, MatSnackBar } from '@angular/material';
@@ -36,7 +36,7 @@ export class OuterGridFilterComponent implements OnInit {
   @ViewChild('idAuto') idAutocomplete: MatAutocomplete;
   @ViewChild('nameAuto') nameAutocomplete: MatAutocomplete;
 
-  constructor(private dataGridService: DataGridService, public snackBar: MatSnackBar) {
+  constructor(private dataGridService: DataGridDataSourceService, public snackBar: MatSnackBar) {
     this.filteredIds = this.idCtrl.valueChanges.pipe(
       startWith(null),
       map((id: string | null) => id ? this._idFilter(id) : this.idValues.slice())
@@ -46,6 +46,24 @@ export class OuterGridFilterComponent implements OnInit {
       map((name: string | null) => name ? this._nameFilter(name) : this.nameValues.slice())
     );
   }
+
+  ngOnInit() {
+    this.filterForm = new FormGroup({
+      id: this.idCtrl,
+      name: this.nameCtrl
+    });
+
+    this.filterObject = {
+      id: null,
+      name: null
+    };
+
+
+    console.log(this.idValues);
+    this.idValues = this.dataGridService.getColumnValues('id');
+    this.nameValues = this.dataGridService.getColumnValues('name');
+  }
+
 
   addId(event: MatChipInputEvent): void {
     // Add ID only when MatAutocomplete is not open
@@ -126,23 +144,6 @@ export class OuterGridFilterComponent implements OnInit {
     this.names.push(event.option.viewValue);
     this.nameInput.nativeElement.value = '';
     this.nameCtrl.setValue(null);
-  }
-
-  ngOnInit() {
-    this.filterForm = new FormGroup({
-      id: this.idCtrl,
-      name: this.nameCtrl
-    });
-
-    this.filterObject = {
-      id: null,
-      name: null
-    };
-
-
-    console.log(this.idValues);
-    this.idValues = this.dataGridService.getColumnValues('id');
-    this.nameValues = this.dataGridService.getColumnValues('name');
   }
 
   public applyFilter(filterForm) {

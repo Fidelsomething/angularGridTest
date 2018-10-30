@@ -3,7 +3,7 @@ import { MatPaginator, MatSort, MatTable } from '@angular/material';
 import { map } from 'rxjs/operators';
 import { Observable, of as observableOf, merge, BehaviorSubject } from 'rxjs';
 import { Injectable, ViewChild } from '@angular/core';
-import { element } from '@angular/core/src/render3';
+
 
 // TODO: Replace this with your own data model type
 export interface DatagridItem {
@@ -47,7 +47,7 @@ const EXAMPLE_DATA: DatagridItem[] = [
  */
 
 @Injectable()
-export class DataGridService implements DataSource<DatagridItem> {
+export class DataGridDataSourceService implements DataSource<DatagridItem> {
   data: DatagridItem[] = EXAMPLE_DATA;
   private paginator: MatPaginator;
   private sort: MatSort;
