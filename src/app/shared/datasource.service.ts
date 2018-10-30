@@ -169,7 +169,8 @@ export class DataGridService implements DataSource<DatagridItem> {
           }
         });
       }
-      console.log(idFlag + '_' + nameFlag + '_' + (filter.name ? filter.name.length : null) + '_' + (filter.name ? filter.name[0] : 'nill'));
+      console.log(idFlag + '_' + nameFlag + '_' +
+      (filter.name ? filter.name.length : null) + '_' + (filter.name ? filter.name[0] : 'nill'));
       return idFlag && nameFlag;
     });
   }
