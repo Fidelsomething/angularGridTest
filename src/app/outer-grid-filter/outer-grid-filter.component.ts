@@ -57,7 +57,7 @@ export class OuterGridFilterComponent implements OnInit {
       // Add the id
       if ((value || '').trim() && this.idValues.some(id => id === value)) {
         this.ids.push(value.trim());
-      } else {
+      } else if (value !== '') {
         this.snackBar.open(value + ' is not a valid filter criteria for ID', null, {
           duration: 2000,
           panelClass: ['orange-snackbar']
@@ -81,9 +81,15 @@ export class OuterGridFilterComponent implements OnInit {
       const value = event.value;
 
       // Add the id
-      if ((value || '').trim()) {
+      if ((value || '').trim() && this.nameValues.some(name => name === value)) {
         this.names.push(value.trim());
+      } else if (value !== '') {
+        this.snackBar.open(value + ' is not a valid filter criteria for Name', null, {
+          duration: 2000,
+          panelClass: ['orange-snackbar']
+        });
       }
+
 
       // Reset the input value
       if (input) {
