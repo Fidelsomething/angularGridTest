@@ -1,5 +1,5 @@
 <div class="filter-container">
-  <form [formGroup]="filterForm" (ngSubmit)="applyFilter(filterForm.value)">
+  <form [formGroup]="filterForm" (ngSubmit)="applyFilter(filterForm)">
 
 
     <!--mat-form-field>
@@ -9,7 +9,7 @@
     </mat-form-field-->
 
     <mat-form-field>
-        <mat-chip-list #chipList>
+        <mat-chip-list #idChipList>
           <mat-chip
             *ngFor="let id of ids"
             [selectable]="selectable"
@@ -22,26 +22,51 @@
             placeholder="ID"
             #idInput
             [formControl]="idCtrl"
-            [matAutocomplete]="auto"
-            [matChipInputFor]="chipList"
+            [matAutocomplete]="idAuto"
+            [matChipInputFor]="idChipList"
             [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
             [matChipInputAddOnBlur]="addOnBlur"
             (matChipInputTokenEnd)="addId($event)">
         </mat-chip-list>
-        <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+        <mat-autocomplete #idAuto="matAutocomplete" (optionSelected)="selectedId($event)">
           <mat-option *ngFor="let id of filteredIds | async" [value]="id">
             {{id}}
           </mat-option>
         </mat-autocomplete>
       </mat-form-field>
+      <mat-form-field>
+          <mat-chip-list #nameChipList>
+            <mat-chip
+              *ngFor="let name of names"
+              [selectable]="selectable"
+              [removable]="removable"
+              (removed)="removeName(name)">
+              {{name}}
+              <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+            </mat-chip>
+            <input
+              placeholder="Name"
+              #nameInput
+              [formControl]="nameCtrl"
+              [matAutocomplete]="nameAuto"
+              [matChipInputFor]="nameChipList"
+              [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+              [matChipInputAddOnBlur]="addOnBlur"
+              (matChipInputTokenEnd)="addName($event)">
+          </mat-chip-list>
+          <mat-autocomplete #nameAuto="matAutocomplete" (optionSelected)="selectedName($event)">
+            <mat-option *ngFor="let name of filteredNames | async" [value]="name">
+              {{name}}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
 
 
-
-    <mat-form-field>
+    <!--mat-form-field>
       <mat-select formControlName="name" placeholder="Name">
           <mat-option value="{{name}}" *ngFor="let name of nameValues">{{name}}</mat-option>
       </mat-select>
-    </mat-form-field>
+    </mat-form-field-->
     <!--mat-form-field>
       <mat-select placeholder="Filter 3">
         <mat-option value="option1">Option1</mat-option>

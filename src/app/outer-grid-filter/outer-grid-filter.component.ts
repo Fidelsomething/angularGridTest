@@ -13,10 +13,8 @@ import { startWith, map } from 'rxjs/operators';
 })
 export class OuterGridFilterComponent implements OnInit {
   filterForm: FormGroup;
-  id: FormControl;
-  name: FormControl;
-  // idValues;
-  nameValues;
+  // id: FormControl;
+  // name: FormControl;
   filterObject: DatagridFilter;
 
   visible = true;
@@ -25,25 +23,34 @@ export class OuterGridFilterComponent implements OnInit {
   addOnBlur = true;
   separatorKeysCodes: number[] = [ENTER, COMMA];
   idCtrl = new FormControl();
+  nameCtrl = new FormControl();
   filteredIds: Observable<string[]>;
+  filteredNames: Observable<string[]>;
   ids: string[] = [];
   names: string[] = [];
   idValues: string[] = [];
+  nameValues: string[] = [];
 
   @ViewChild('idInput') idInput: ElementRef<HTMLInputElement>;
-  @ViewChild('auto') matAutocomplete: MatAutocomplete;
+  @ViewChild('nameInput') nameInput: ElementRef<HTMLInputElement>;
+  @ViewChild('idAuto') idAutocomplete: MatAutocomplete;
+  @ViewChild('nameAuto') nameAutocomplete: MatAutocomplete;
 
   constructor(private dataGridService: DataGridService) {
     this.filteredIds = this.idCtrl.valueChanges.pipe(
       startWith(null),
       map((idz: string | null) => idz ? this._idFilter(idz) : this.idValues.slice())
     );
+    this.filteredNames = this.nameCtrl.valueChanges.pipe(
+      startWith(null),
+      map((name: string | null) => name ? this._nameFilter(name) : this.nameValues.slice())
+    );
   }
 
   addId(event: MatChipInputEvent): void {
     // Add ID only when MatAutocomplete is not open
     // To make sure this does not conflict with OptionSelected Event
-    if (!this.matAutocomplete.isOpen) {
+    if (!this.idAutocomplete.isOpen) {
       const input = event.input;
       const value = event.value;
 
@@ -61,6 +68,27 @@ export class OuterGridFilterComponent implements OnInit {
     }
   }
 
+  addName(event: MatChipInputEvent): void {
+    // Add ID only when MatAutocomplete is not open
+    // To make sure this does not conflict with OptionSelected Event
+    if (!this.nameAutocomplete.isOpen) {
+      const input = event.input;
+      const value = event.value;
+
+      // Add the id
+      if ((value || '').trim()) {
+        this.names.push(value.trim());
+      }
+
+      // Reset the input value
+      if (input) {
+        input.value = '';
+      }
+
+      this.nameCtrl.setValue(null);
+    }
+  }
+
   removeId(id: string ) {
     const index = this.ids.indexOf(id);
 
@@ -69,18 +97,30 @@ export class OuterGridFilterComponent implements OnInit {
     }
   }
 
-  selected(event: MatAutocompleteSelectedEvent): void {
+  removeName(name: string ) {
+    const index = this.names.indexOf(name);
+
+    if (index >= 0) {
+      this.names.splice(index, 1);
+    }
+  }
+
+  selectedId(event: MatAutocompleteSelectedEvent): void {
     this.ids.push(event.option.viewValue);
     this.idInput.nativeElement.value = '';
     this.idCtrl.setValue(null);
   }
 
+  selectedName(event: MatAutocompleteSelectedEvent): void {
+    this.names.push(event.option.viewValue);
+    this.nameInput.nativeElement.value = '';
+    this.nameCtrl.setValue(null);
+  }
+
   ngOnInit() {
-    this.id = new FormControl();
-    this.name = new FormControl();
     this.filterForm = new FormGroup({
-      id: this.id,
-      name: this.name
+      id: this.idCtrl,
+      name: this.nameCtrl
     });
 
     this.filterObject = {
@@ -97,24 +137,30 @@ export class OuterGridFilterComponent implements OnInit {
   public applyFilter(filterForm) {
     // console.log(filterForm);
     // this.names.push(this.name.value);
-    if (this.name.value) {
+/*     if (this.name.value) {
       this.names.push(this.name.value);
-    }
+    } */
     this.filterObject = {
       id: this.ids,
       name: this.names
     };
     console.log(this.filterObject);
     this.dataGridService.filterData(this.filterObject);
-    this.names.length = 0;
+    // this.names.length = 0;
     // this.ids.length = 0;
-    this.name.reset();
+    // this.name.reset();
   }
 
   private _idFilter(value: string): string[] {
     const idFilterValue = ('' + value).toLowerCase();
 
     return this.idValues.filter(id => ('' + id).toLowerCase().indexOf(idFilterValue) === 0);
+  }
+
+  private _nameFilter(value: string): string[] {
+    const nameFilterValue = ('' + value).toLowerCase();
+
+    return this.nameValues.filter(name => ('' + name).toLowerCase().indexOf(nameFilterValue) === 0);
   }
 
 }

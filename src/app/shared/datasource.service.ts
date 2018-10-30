@@ -158,6 +158,7 @@ export class DataGridService implements DataSource<DatagridItem> {
         });
       }
 
+
       let nameFlag = false;
       if (!filter.name || filter.name.length === 0) {
         nameFlag = true;
