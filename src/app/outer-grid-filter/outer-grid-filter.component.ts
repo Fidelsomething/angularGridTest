@@ -1,6 +1,6 @@
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { DataGridService } from '../shared/datasource.service';
+import { DataGridService, DatagridFilter } from '../shared/datasource.service';
 import { FormGroup, FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { MatAutocomplete, MatChipInputEvent, MatAutocompleteSelectedEvent } from '@angular/material';
@@ -17,6 +17,7 @@ export class OuterGridFilterComponent implements OnInit {
   name: FormControl;
   // idValues;
   nameValues;
+  filterObject: DatagridFilter;
 
   visible = true;
   selectable = true;
@@ -26,6 +27,7 @@ export class OuterGridFilterComponent implements OnInit {
   idCtrl = new FormControl();
   filteredIds: Observable<string[]>;
   ids: string[] = [];
+  names: string[] = [];
   idValues: string[] = [];
 
   @ViewChild('idInput') idInput: ElementRef<HTMLInputElement>;
@@ -81,6 +83,11 @@ export class OuterGridFilterComponent implements OnInit {
       name: this.name
     });
 
+    this.filterObject = {
+      id: null,
+      name: null
+    };
+
 
     console.log(this.idValues);
     this.idValues = this.dataGridService.getColumnValues('id');
@@ -88,8 +95,20 @@ export class OuterGridFilterComponent implements OnInit {
   }
 
   public applyFilter(filterForm) {
-    console.log(filterForm);
-    this.dataGridService.filterData(filterForm);
+    // console.log(filterForm);
+    // this.names.push(this.name.value);
+    if (this.name.value) {
+      this.names.push(this.name.value);
+    }
+    this.filterObject = {
+      id: this.ids,
+      name: this.names
+    };
+    console.log(this.filterObject);
+    this.dataGridService.filterData(this.filterObject);
+    this.names.length = 0;
+    // this.ids.length = 0;
+    this.name.reset();
   }
 
   private _idFilter(value: string): string[] {

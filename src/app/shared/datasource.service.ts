@@ -3,11 +3,17 @@ import { MatPaginator, MatSort, MatTable } from '@angular/material';
 import { map } from 'rxjs/operators';
 import { Observable, of as observableOf, merge, BehaviorSubject } from 'rxjs';
 import { Injectable, ViewChild } from '@angular/core';
+import { element } from '@angular/core/src/render3';
 
 // TODO: Replace this with your own data model type
 export interface DatagridItem {
   name: string;
   id: number;
+}
+
+export interface DatagridFilter {
+  id: string[];
+  name: string[];
 }
 
 // TODO: replace this with real data from your application
@@ -48,7 +54,7 @@ export class DataGridService implements DataSource<DatagridItem> {
   private table: MatTable<any>;
 
   // Observable filter source
-  private _filterSource = new BehaviorSubject<DatagridItem>({id: null, name: null});
+  private _filterSource = new BehaviorSubject<DatagridFilter>({id: null, name: null});
 
   // Observable filter stream
   filter$ = this._filterSource.asObservable();
@@ -132,13 +138,39 @@ export class DataGridService implements DataSource<DatagridItem> {
    * Applies input filter to the datasource. Input is an Object with columns and respective values.
    * @param filter - data filter
    */
-  public filterData( filter: DatagridItem) {
+  public filterData( filter: DatagridFilter) {
     // let filteredData = this.data.filter( d => (!filter.id || d.id === +filter.id) && (!filter.name || d.name === filter.name));
     this._filterSource.next(filter);
   }
 
-  private tableFilterData( filter: DatagridItem, data: DatagridItem[]) {
-    return data.filter( d => (!filter.id || d.id === +filter.id) && (!filter.name || d.name === filter.name));
+  private tableFilterData( filter: DatagridFilter, data: DatagridItem[]) {
+    // return data.filter( d => (!filter.id || d.id === +filter.id) && (!filter.name || d.name === filter.name));
+    console.log(filter);
+    return data.filter( d => {
+      let idFlag = false;
+      if (!filter.id || filter.id.length === 0) {
+        idFlag = true;
+      } else {
+        filter.id.forEach(idFilter => {
+          if ((idFilter.toString()) === (('' + d.id).toString())) {
+            idFlag = true;
+          }
+        });
+      }
+
+      let nameFlag = false;
+      if (!filter.name || filter.name.length === 0) {
+        nameFlag = true;
+      } else {
+        filter.name.forEach(nameFilter => {
+          if (!!nameFilter && nameFilter.toString() === d.name) {
+            nameFlag = true;
+          }
+        });
+      }
+      console.log(idFlag + '_' + nameFlag + '_' + (filter.name ? filter.name.length : null) + '_' + (filter.name ? filter.name[0] : 'nill'));
+      return idFlag && nameFlag;
+    });
   }
 }
 
