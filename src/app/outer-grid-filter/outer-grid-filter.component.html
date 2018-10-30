@@ -1,13 +1,5 @@
 <div class="filter-container">
   <form [formGroup]="filterForm" (ngSubmit)="applyFilter(filterForm)">
-
-
-    <!--mat-form-field>
-      <mat-select formControlName="id" placeholder="ID">
-        <mat-option value="{{id}}" *ngFor="let id of idValues">{{id}}</mat-option>
-      </mat-select>
-    </mat-form-field-->
-
     <mat-form-field>
         <mat-chip-list #idChipList>
           <mat-chip
@@ -19,6 +11,7 @@
             <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
           </mat-chip>
           <input
+            i18n-placeholder="id filter placeholder|id filter placeholder@@idfilterplaceholder"
             placeholder="ID"
             #idInput
             [formControl]="idCtrl"
@@ -45,6 +38,7 @@
               <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
             </mat-chip>
             <input
+              i18n-placeholder="name filter placeholder|name filter placeholder@@namefilterplaceholder"
               placeholder="Name"
               #nameInput
               [formControl]="nameCtrl"
@@ -180,7 +174,7 @@
       </mat-select>
     </mat-form-field-->
     <br>
-    <button mat-raised-button type="submit">Submit</button>
+    <button mat-raised-button type="submit" i18n="filter submit button| filter submit button@@filtersubmitbutton">Submit</button>
     <div style="height:50px;"></div>
   </form>
 </div>

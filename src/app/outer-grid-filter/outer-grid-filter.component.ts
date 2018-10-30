@@ -135,20 +135,12 @@ export class OuterGridFilterComponent implements OnInit {
   }
 
   public applyFilter(filterForm) {
-    // console.log(filterForm);
-    // this.names.push(this.name.value);
-/*     if (this.name.value) {
-      this.names.push(this.name.value);
-    } */
     this.filterObject = {
       id: this.ids,
       name: this.names
     };
     console.log(this.filterObject);
     this.dataGridService.filterData(this.filterObject);
-    // this.names.length = 0;
-    // this.ids.length = 0;
-    // this.name.reset();
   }
 
   private _idFilter(value: string): string[] {

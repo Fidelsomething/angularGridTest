@@ -3,7 +3,7 @@
       [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
       [mode]="(isHandset$ | async) ? 'over' : 'side'"
       [opened]="!(isHandset$ | async)">
-    <mat-toolbar >Filters</mat-toolbar>
+    <mat-toolbar i18n="navbar filter title|The navbar filter title@@navbarfiltertitle">Filters</mat-toolbar>
     <app-outer-grid-filter></app-outer-grid-filter>
 
     <!----mat-nav-list>
@@ -24,7 +24,7 @@
       </button>
       <span>angularGridTest</span>
       <span class="navbar-fill-remaining-space"></span>
-      <span>Logout</span>
+      <span i18n="logout text|the logout text@@logouttext">Logout</span>
     </mat-toolbar>
     <app-datagrid></app-datagrid>
   </mat-sidenav-content>

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+  <file source-language="en" datatype="plaintext" original="ng2.template">
+    <body>
+      <trans-unit id="navbarfiltertitle" datatype="html">
+        <source>Filters</source>
+        <target>Filter</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/mali-navbar/mali-navbar.component.html</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+        <note priority="1" from="description">The navbar filter title</note>
+        <note priority="1" from="meaning">navbar filter title</note>
+      </trans-unit>
+      <trans-unit id="logouttext" datatype="html">
+        <source>Logout</source>
+        <target>Ausloggen</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/mali-navbar/mali-navbar.component.html</context>
+          <context context-type="linenumber">27</context>
+        </context-group>
+        <note priority="1" from="description">the logout text</note>
+        <note priority="1" from="meaning">logout text</note>
+      </trans-unit>
+      <trans-unit id="idfilterplaceholder" datatype="html">
+        <source>ID</source>
+        <target>ID</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/outer-grid-filter/outer-grid-filter.component.html</context>
+          <context context-type="linenumber">15</context>
+        </context-group>
+        <note priority="1" from="description">id filter placeholder</note>
+        <note priority="1" from="meaning">id filter placeholder</note>
+      </trans-unit>
+      <trans-unit id="namefilterplaceholder" datatype="html">
+        <source>Name</source>
+        <target>Name</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/outer-grid-filter/outer-grid-filter.component.html</context>
+          <context context-type="linenumber">42</context>
+        </context-group>
+        <note priority="1" from="description">name filter placeholder</note>
+        <note priority="1" from="meaning">name filter placeholder</note>
+      </trans-unit>
+      <trans-unit id="filtersubmitbutton" datatype="html">
+        <source>Submit</source>
+        <target>Sich Bewerben</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/outer-grid-filter/outer-grid-filter.component.html</context>
+          <context context-type="linenumber">177</context>
+        </context-group>
+        <note priority="1" from="description"> filter submit button</note>
+        <note priority="1" from="meaning">filter submit button</note>
+      </trans-unit>
+      <trans-unit id="idDataGrid" datatype="html">
+        <source>Id</source>
+        <target>Id</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/datagrid/datagrid.component.html</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+        <note priority="1" from="description"> the ID header for the datagrid</note>
+        <note priority="1" from="meaning">id header</note>
+      </trans-unit>
+      <trans-unit id="nameDataGrid" datatype="html">
+        <source>Name</source>
+        <target>Name</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/datagrid/datagrid.component.html</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
+        <note priority="1" from="description"> the NAME header for the datagrid</note>
+        <note priority="1" from="meaning">name header</note>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>
