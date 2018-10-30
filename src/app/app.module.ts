@@ -15,7 +15,7 @@ import {
   MatSelectModule,
   MatInputModule,
   MatChipsModule,
-  MatAutocompleteModule, MatTableModule, MatPaginatorModule, MatSortModule, MatSnackBar, MatSnackBarModule
+  MatAutocompleteModule, MatTableModule, MatPaginatorModule, MatSortModule, MatSnackBarModule
 } from '@angular/material';
 import { OuterGridFilterComponent } from './outer-grid-filter/outer-grid-filter.component';
 import { DatagridComponent } from './datagrid/datagrid.component';
