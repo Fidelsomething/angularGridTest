@@ -13,13 +13,21 @@ import {
   MatListModule,
   MatFormFieldModule,
   MatSelectModule,
-  MatInputModule
+  MatInputModule,
+  MatChipsModule,
+  MatAutocompleteModule, MatTableModule, MatPaginatorModule, MatSortModule, MatSnackBar, MatSnackBarModule
 } from '@angular/material';
+import { OuterGridFilterComponent } from './outer-grid-filter/outer-grid-filter.component';
+import { DatagridComponent } from './datagrid/datagrid.component';
+import { DataGridDataSourceService } from './shared/dataGridDataSource.service';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
     AppComponent,
-    MaliNavbarComponent
+    MaliNavbarComponent,
+    OuterGridFilterComponent,
+    DatagridComponent
   ],
   imports: [
     BrowserModule,
@@ -32,9 +40,16 @@ import {
     MatListModule,
     MatFormFieldModule,
     MatSelectModule,
-    MatInputModule
+    MatInputModule,
+    MatChipsModule,
+    MatAutocompleteModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule,
+    ReactiveFormsModule,
+    MatSnackBarModule
   ],
-  providers: [],
+  providers: [DataGridDataSourceService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
