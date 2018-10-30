@@ -3,7 +3,7 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { DataGridService, DatagridFilter } from '../shared/datasource.service';
 import { FormGroup, FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
-import { MatAutocomplete, MatChipInputEvent, MatAutocompleteSelectedEvent } from '@angular/material';
+import { MatAutocomplete, MatChipInputEvent, MatAutocompleteSelectedEvent, MatSnackBar } from '@angular/material';
 import { startWith, map } from 'rxjs/operators';
 
 @Component({
@@ -36,10 +36,10 @@ export class OuterGridFilterComponent implements OnInit {
   @ViewChild('idAuto') idAutocomplete: MatAutocomplete;
   @ViewChild('nameAuto') nameAutocomplete: MatAutocomplete;
 
-  constructor(private dataGridService: DataGridService) {
+  constructor(private dataGridService: DataGridService, public snackBar: MatSnackBar) {
     this.filteredIds = this.idCtrl.valueChanges.pipe(
       startWith(null),
-      map((idz: string | null) => idz ? this._idFilter(idz) : this.idValues.slice())
+      map((id: string | null) => id ? this._idFilter(id) : this.idValues.slice())
     );
     this.filteredNames = this.nameCtrl.valueChanges.pipe(
       startWith(null),
@@ -55,8 +55,13 @@ export class OuterGridFilterComponent implements OnInit {
       const value = event.value;
 
       // Add the id
-      if ((value || '').trim()) {
+      if ((value || '').trim() && this.idValues.some(id => id === value)) {
         this.ids.push(value.trim());
+      } else {
+        this.snackBar.open(value + ' is not a valid filter criteria for ID', null, {
+          duration: 2000,
+          panelClass: ['orange-snackbar']
+        });
       }
 
       // Reset the input value

@@ -15,7 +15,7 @@ import {
   MatSelectModule,
   MatInputModule,
   MatChipsModule,
-  MatAutocompleteModule, MatTableModule, MatPaginatorModule, MatSortModule
+  MatAutocompleteModule, MatTableModule, MatPaginatorModule, MatSortModule, MatSnackBar, MatSnackBarModule
 } from '@angular/material';
 import { OuterGridFilterComponent } from './outer-grid-filter/outer-grid-filter.component';
 import { DatagridComponent } from './datagrid/datagrid.component';
@@ -46,7 +46,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatTableModule,
     MatPaginatorModule,
     MatSortModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatSnackBarModule
   ],
   providers: [DataGridService],
   bootstrap: [AppComponent]
