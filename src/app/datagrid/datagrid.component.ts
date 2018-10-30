@@ -18,7 +18,7 @@ export class DatagridComponent implements OnInit, OnDestroy {
   constructor(public dataSource: DataGridDataSourceService) {}
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
-  displayedColumns = ['id', 'name'];
+  displayedColumns = ['id', 'name', 'symbol'];
 
   ngOnInit() {
     this.dataSource.setPaginator(this.paginator);

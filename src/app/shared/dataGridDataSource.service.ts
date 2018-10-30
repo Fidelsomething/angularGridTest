@@ -9,35 +9,37 @@ import { Injectable, ViewChild } from '@angular/core';
 export interface DatagridItem {
   name: string;
   id: number;
+  symbol: string;
 }
 
 export interface DatagridFilter {
   id: string[];
   name: string[];
+  symbol: string[];
 }
 
 // TODO: replace this with real data from your application
 const EXAMPLE_DATA: DatagridItem[] = [
-  {id: 1, name: 'Hydrogen'},
-  {id: 2, name: 'Helium'},
-  {id: 3, name: 'Lithium'},
-  {id: 4, name: 'Beryllium'},
-  {id: 5, name: 'Boron'},
-  {id: 6, name: 'Carbon'},
-  {id: 7, name: 'Nitrogen'},
-  {id: 8, name: 'Oxygen'},
-  {id: 9, name: 'Fluorine'},
-  {id: 10, name: 'Neon'},
-  {id: 11, name: 'Sodium'},
-  {id: 12, name: 'Magnesium'},
-  {id: 13, name: 'Aluminum'},
-  {id: 14, name: 'Silicon'},
-  {id: 15, name: 'Phosphorus'},
-  {id: 16, name: 'Sulfur'},
-  {id: 17, name: 'Chlorine'},
-  {id: 18, name: 'Argon'},
-  {id: 19, name: 'Potassium'},
-  {id: 20, name: 'Calcium'},
+  {id: 1, name: 'Hydrogen', symbol: 'H'},
+  {id: 2, name: 'Helium', symbol: 'He'},
+  {id: 3, name: 'Lithium', symbol: 'Li'},
+  {id: 4, name: 'Beryllium', symbol: 'Be'},
+  {id: 5, name: 'Boron', symbol: 'B'},
+  {id: 6, name: 'Carbon', symbol: 'C'},
+  {id: 7, name: 'Nitrogen', symbol: 'N'},
+  {id: 8, name: 'Oxygen', symbol: 'O'},
+  {id: 9, name: 'Fluorine', symbol: 'F'},
+  {id: 10, name: 'Neon', symbol: 'Ne'},
+  {id: 11, name: 'Sodium', symbol: 'Na'},
+  {id: 12, name: 'Magnesium', symbol: 'Mg'},
+  {id: 13, name: 'Aluminum', symbol: 'Al'},
+  {id: 14, name: 'Silicon', symbol: 'Si'},
+  {id: 15, name: 'Phosphorus', symbol: 'P'},
+  {id: 16, name: 'Sulfur', symbol: 'S'},
+  {id: 17, name: 'Chlorine', symbol: 'Cl'},
+  {id: 18, name: 'Argon', symbol: 'Ar'},
+  {id: 19, name: 'Potassium', symbol: 'K'},
+  {id: 20, name: 'Calcium', symbol: 'Ca'},
 ];
 
 /**
@@ -51,10 +53,9 @@ export class DataGridDataSourceService implements DataSource<DatagridItem> {
   data: DatagridItem[] = EXAMPLE_DATA;
   private paginator: MatPaginator;
   private sort: MatSort;
-  private table: MatTable<any>;
 
   // Observable filter source
-  private _filterSource = new BehaviorSubject<DatagridFilter>({id: null, name: null});
+  private _filterSource = new BehaviorSubject<DatagridFilter>({id: null, name: null, symbol: null});
 
   // Observable filter stream
   filter$ = this._filterSource.asObservable();
@@ -121,6 +122,7 @@ export class DataGridDataSourceService implements DataSource<DatagridItem> {
       switch (this.sort.active) {
         case 'name': return compare(a.name, b.name, isAsc);
         case 'id': return compare(+a.id, +b.id, isAsc);
+        case 'symbol': return compare(a.symbol, b.symbol, isAsc);
         default: return 0;
       }
     });
@@ -151,7 +153,7 @@ export class DataGridDataSourceService implements DataSource<DatagridItem> {
       if (!filter.id || filter.id.length === 0) {
         idFlag = true;
       } else {
-        filter.id.forEach(idFilter => {
+        filter.id.map(idFilter => {
           if ((idFilter.toString()) === (('' + d.id).toString())) {
             idFlag = true;
           }
@@ -163,15 +165,26 @@ export class DataGridDataSourceService implements DataSource<DatagridItem> {
       if (!filter.name || filter.name.length === 0) {
         nameFlag = true;
       } else {
-        filter.name.forEach(nameFilter => {
+        filter.name.map(nameFilter => {
           if (!!nameFilter && nameFilter.toString() === d.name) {
             nameFlag = true;
           }
         });
       }
+
+      let symbolFlag = false;
+      if (!filter.symbol || filter.symbol.length === 0) {
+        symbolFlag = true;
+      } else {
+        filter.symbol.map(symbolFilter => {
+          if (!!symbolFilter && symbolFilter.toString() === d.symbol) {
+            symbolFlag = true;
+          }
+        });
+      }
       console.log(idFlag + '_' + nameFlag + '_' +
       (filter.name ? filter.name.length : null) + '_' + (filter.name ? filter.name[0] : 'nill'));
-      return idFlag && nameFlag;
+      return idFlag && nameFlag && symbolFlag;
     });
   }
 }

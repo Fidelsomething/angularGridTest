@@ -54,6 +54,33 @@
             </mat-option>
           </mat-autocomplete>
         </mat-form-field>
+        <mat-form-field>
+            <mat-chip-list #symbolChipList>
+              <mat-chip
+                *ngFor="let symbol of symbols"
+                [selectable]="selectable"
+                [removable]="removable"
+                (removed)="removeSymbol(symbol)">
+                {{symbol}}
+                <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+              </mat-chip>
+              <input
+                i18n-placeholder="symbol filter placeholder|symbol filter placeholder@@symbolfilterplaceholder"
+                placeholder="Symbol"
+                #symbolInput
+                [formControl]="symbolCtrl"
+                [matAutocomplete]="symbolAuto"
+                [matChipInputFor]="symbolChipList"
+                [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                [matChipInputAddOnBlur]="addOnBlur"
+                (matChipInputTokenEnd)="addSymbol($event)">
+            </mat-chip-list>
+            <mat-autocomplete #symbolAuto="matAutocomplete" (optionSelected)="selectedSymbol($event)">
+              <mat-option *ngFor="let symbol of filteredSymbols | async" [value]="symbol">
+                {{symbol}}
+              </mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
 
 
     <!--mat-form-field>
